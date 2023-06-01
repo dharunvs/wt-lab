@@ -1,0 +1,68 @@
+import org.xml.sax.*;
+import org.xml.sax.helpers.*;
+import javax.xml.parsers.*;
+
+class MyHandler extends DefaultHandler {
+    boolean studentElement = false;
+    boolean registerNumberElement = false;
+    boolean nameElement = false;
+    boolean branchElement = false;
+    boolean semesterElement = false;
+    
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        if (qName.equalsIgnoreCase("student")) {
+        	studentElement = true;
+        } else if (qName.equalsIgnoreCase("registerNumber")) {
+        	registerNumberElement = true;
+        } else if (qName.equalsIgnoreCase("name")) {
+        	nameElement = true;
+        } else if (qName.equalsIgnoreCase("branch")) {
+        	branchElement = true;
+        } else if (qName.equalsIgnoreCase("semester")) {
+        	semesterElement = true;
+        } 
+    }
+
+
+    public void characters(char[] ch, int start, int length) throws SAXException {
+        if (registerNumberElement) {
+            String registerNumber = new String(ch, start, length);
+            System.out.println("Register Number: " + registerNumber);
+            registerNumberElement = false;
+        } else if (nameElement) {
+            String name = new String(ch, start, length);
+            System.out.println("Name: " + name);
+            nameElement = false;
+        } else if (branchElement) {
+            String branch = new String(ch, start, length);
+            System.out.println("Branch: " + branch);
+            branchElement = false;
+        }else if (semesterElement) {
+            String semester = new String(ch, start, length);
+            System.out.println("Semester: " + semester);
+            semesterElement = false;
+        }
+    }
+
+    public void endElement(String uri, String localName, String qName) throws SAXException {
+        if (qName.equalsIgnoreCase("student")) {
+            System.out.println();
+            studentElement = false;
+        }
+    }
+}
+
+public class SaxParser {
+	public static void main(String args[]) {
+		 try {
+		        SAXParserFactory factory = SAXParserFactory.newInstance();
+		        SAXParser parser = factory.newSAXParser();
+		        MyHandler handler = new MyHandler();
+		        parser.parse("hostel_data.xml", handler);
+		        
+		    } catch (Exception e) {
+		    	System.out.println(e);
+		    }
+	}
+	
+}

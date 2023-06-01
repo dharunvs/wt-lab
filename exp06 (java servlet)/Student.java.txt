@@ -1,0 +1,38 @@
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+import java.io.*;
+
+public class Student extends HttpServlet {
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Helloo");
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String regno = request.getParameter("regno");
+		String tamil = request.getParameter("tamil");
+		String eng = request.getParameter("english");
+		String mat = request.getParameter("maths");
+		
+		int total = Integer.parseInt(tamil) + Integer.parseInt(eng) + + Integer.parseInt(mat);
+		float avg = total/3;
+		
+		String result;
+		
+		if (Integer.parseInt(tamil) > 49 && Integer.parseInt(eng) > 49 && Integer.parseInt(mat) > 49){
+			result = "Pass";
+		} else {
+			result = "Fail";
+		}
+		
+		
+		response.getWriter().print("<h1>Student Marks</h1>");
+		response.getWriter().print("<p>Register No: " + regno + "</p>");
+		response.getWriter().print("<p>Total : " + total + "</p>");
+		response.getWriter().print("<p>Average : " + avg + "</p>");
+		response.getWriter().print("<p>Result : " + result + "</p>");
+		
+	}
+
+}

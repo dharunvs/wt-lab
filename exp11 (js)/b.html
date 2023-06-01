@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Sum of natural numbers</h1>
+    <p>Enter a number</p>
+    <input type="text" id="input" />
+    <button onclick="func()">Okay</button>
+
+    <p id="output"></p>
+
+    <script>
+      function func() {
+        const num = parseInt(document.getElementById("input").value);
+        let sum = 0;
+
+        for (let i = 1; i <= num; i++) {
+          sum += i;
+        }
+
+        document.getElementById("output").innerText = "Sum: " + sum;
+      }
+    </script>
+  </body>
+</html>
